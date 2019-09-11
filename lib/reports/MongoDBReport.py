@@ -47,5 +47,5 @@ class MongoDBReport(BaseReport):
                 db.insert_one(entry)
             except:
                 pass
-
+            result[headerName].append(entry)
         return json.dumps(result, sort_keys=True, indent=4)
