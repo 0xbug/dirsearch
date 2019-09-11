@@ -190,7 +190,7 @@ class ArgumentParser(object):
 
         # Reports
         self.autoSave = config.safe_getboolean("reports", "autosave-report", True)
-        self.autoSaveFormat = config.safe_get("reports", "autosave-report-format", "plain", ["plain", "json", "simple","mongo"])
+        self.autoSaveFormat = config.safe_get("reports", "autosave-report-format", "mongo", ["plain", "json", "simple","mongo"])
         # Dictionary
         self.wordlist = config.safe_get("dictionary", "wordlist",
                                         FileUtils.buildPath(self.script_path, "db", "dicc.txt"))
