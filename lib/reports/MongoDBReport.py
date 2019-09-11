@@ -42,6 +42,7 @@ class MongoDBReport(BaseReport):
 
         for path, status, contentLength, redirect in self.pathList:
             entry = {'status': status, 'path': path, 'content-length': contentLength, 'redirect': redirect}
-            print(entry)
+            report_db.save(entry)
+            result[headerName].append(entry)
 
         return json.dumps(result, sort_keys=True, indent=4)
