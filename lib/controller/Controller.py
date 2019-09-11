@@ -298,7 +298,9 @@ class Controller(object):
             if FileUtils.canWrite(directoryPath):
                 report = None
                 if self.arguments.autoSaveFormat == 'mongo':
-                    report = MongoDBReport(requester.host, requester.port, requester.protocol, requester.basePath,
+                    MongoDBReport(requester.host, requester.port, requester.protocol, requester.basePath,
+                                        outputFile)
+                    report = JSONReport(requester.host, requester.port, requester.protocol, requester.basePath,
                                         outputFile)
 
                 if self.arguments.autoSaveFormat == 'simple':
