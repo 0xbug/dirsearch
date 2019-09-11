@@ -36,13 +36,17 @@ class MongoDBReport(BaseReport):
             contentLength = len(response.body)
 
         self.pathList.append((path, status, contentLength, response.redirect))
+    def save(self):
+        for path, status, contentLength, redirect in self.pathList:
+            entry = {'status': status, 'path': path, 'content-length': contentLength, 'redirect': redirect}
+            report_db.save(entry)
+
     def generate(self):
         headerName = '{0}://{1}:{2}/{3}'.format(self.protocol, self.host, self.port, self.basePath)
         result = {headerName: []}
 
         for path, status, contentLength, redirect in self.pathList:
             entry = {'status': status, 'path': path, 'content-length': contentLength, 'redirect': redirect}
-            report_db.save(entry)
             result[headerName].append(entry)
 
         return json.dumps(result, sort_keys=True, indent=4)
