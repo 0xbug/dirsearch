@@ -40,9 +40,12 @@ class MongoDBReport(BaseReport):
     def save(self):
         headerName = '{0}://{1}:{2}/{3}'.format(self.protocol, self.host, self.port, self.basePath)
         for path, status, contentLength, redirect in self.pathList:
+            url = '{}{}'.format(headerName, path)
             entry = {'status': status, 'path': path, 'content-length': contentLength, 'redirect': redirect,
-                     'url': '{}{}'.format(headerName, path), 'host': self.host}
-            report_db.save(entry)
+                     'url': url, 'host': self.host}
+            try:
+                report_db.update_one({'url': url}, {'$set': entry}, upsert=True)
+            except:pass
 
     def generate(self):
         headerName = '{0}://{1}:{2}/{3}'.format(self.protocol, self.host, self.port, self.basePath)
