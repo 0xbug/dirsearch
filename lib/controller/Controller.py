@@ -298,11 +298,8 @@ class Controller(object):
             if FileUtils.canWrite(directoryPath):
                 report = None
                 if self.arguments.autoSaveFormat == 'mongo':
-                    MongoDBReport(requester.host, requester.port, requester.protocol, requester.basePath,
+                    report = MongoDBReport(requester.host, requester.port, requester.protocol, requester.basePath,
                                         outputFile)
-                    report = JSONReport(requester.host, requester.port, requester.protocol, requester.basePath,
-                                        outputFile)
-
                 if self.arguments.autoSaveFormat == 'simple':
                     report = SimpleReport(requester.host, requester.port, requester.protocol, requester.basePath,
                                           outputFile)
