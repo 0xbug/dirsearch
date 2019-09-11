@@ -27,7 +27,7 @@ from queue import Queue
 
 from lib.connection import Requester, RequestException
 from lib.core import Dictionary, Fuzzer, ReportManager
-from lib.reports import JSONReport, PlainTextReport, SimpleReport
+from lib.reports import JSONReport,MongoDBReport, PlainTextReport, SimpleReport
 from lib.utils import FileUtils
 
 
@@ -297,6 +297,9 @@ class Controller(object):
                     sys.exit(1)
             if FileUtils.canWrite(directoryPath):
                 report = None
+                if self.arguments.autoSaveFormat == 'mongo':
+                    report = MongoDBReport(requester.host, requester.port, requester.protocol, requester.basePath,
+                                        outputFile)
 
                 if self.arguments.autoSaveFormat == 'simple':
                     report = SimpleReport(requester.host, requester.port, requester.protocol, requester.basePath,
