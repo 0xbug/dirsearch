@@ -43,9 +43,6 @@ class MongoDBReport(BaseReport):
 
         for path, status, contentLength, redirect in self.pathList:
             entry = {'status': status, 'path': path, 'content-length': contentLength, 'redirect': redirect}
-            try:
-                report_db.save(entry)
-            except:
-                pass
+            report_db.save(entry)
 
         return json.dumps(result, sort_keys=True, indent=4)
