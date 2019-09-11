@@ -300,6 +300,7 @@ class Controller(object):
                 if self.arguments.autoSaveFormat == 'mongo':
                     report = MongoDBReport(requester.host, requester.port, requester.protocol, requester.basePath,
                                         outputFile)
+                    report.generate()
                 if self.arguments.autoSaveFormat == 'simple':
                     report = SimpleReport(requester.host, requester.port, requester.protocol, requester.basePath,
                                           outputFile)
