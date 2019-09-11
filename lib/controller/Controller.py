@@ -297,10 +297,6 @@ class Controller(object):
                     sys.exit(1)
             if FileUtils.canWrite(directoryPath):
                 report = None
-                if self.arguments.autoSaveFormat == 'mongo':
-                    report = MongoDBReport(requester.host, requester.port, requester.protocol, requester.basePath,
-                                        outputFile)
-                    report.generate()
                 if self.arguments.autoSaveFormat == 'simple':
                     report = SimpleReport(requester.host, requester.port, requester.protocol, requester.basePath,
                                           outputFile)
@@ -310,6 +306,9 @@ class Controller(object):
                 else:
                     report = PlainTextReport(requester.host, requester.port, requester.protocol, requester.basePath,
                                              outputFile)
+                if self.arguments.autoSaveFormat == 'mongo':
+                    report = MongoDBReport(requester.host, requester.port, requester.protocol, requester.basePath,
+                                        outputFile)
 
                 self.reportManager.addOutput(report)
 
